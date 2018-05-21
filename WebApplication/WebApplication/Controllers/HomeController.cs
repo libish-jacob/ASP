@@ -12,7 +12,6 @@ namespace WebApplication.Controllers
     {
         public ActionResult Index()
         {
-
             return View();
         }
 
@@ -30,21 +29,17 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        ////[Route("home/{year}/{month}")]
+        [Route("home/hello/{year}/{month}")]
         public ActionResult Hello(int? year, int? month)
         {
-            ////return Content($"year:{year} month:{month}");
             Movie newMovie = new Movie { Name = "Movie1" };
             IList<Customer> cust = new List<Customer> {
                 new Customer{ Name = "1" },
                 new Customer{ Name = "2" }
             };
 
-
             HomeViewModel viewModel = new HomeViewModel() { movie = newMovie, Customers = cust };
-
-            return View(viewModel);
-            ////return View();
+            return View(viewModel);            
         }
     }
 }

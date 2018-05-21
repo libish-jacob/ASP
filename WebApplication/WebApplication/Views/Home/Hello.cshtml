@@ -4,21 +4,26 @@
 }
 
 <div class="jumbotron">
-    <h1>@Model.movie.Name</h1>
-    <div>
-        <ul class="list-group">
-            @if (Model.Customers.Any())
-            {
-                foreach (var customer in Model.Customers)
-                {
-                    <li class="list-group-item">@customer.Name</li>
-                }
-            }
-        </ul>
-    </div>
+    <h1>Moview</h1>
+
 </div>
 
 <div class="row">
+    <div class="col-md-4">
+        <h2>@Model.movie.Name</h2>
+        <div>
+            <ul class="list-group">
+                @if (Model.Customers.Any())
+                {
+                    foreach (var customer in Model.Customers)
+                    {
+                        <li class="list-group-item">@customer.Name</li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
