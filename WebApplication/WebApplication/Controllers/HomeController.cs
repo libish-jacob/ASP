@@ -17,26 +17,36 @@ namespace WebApplication.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            object model = "Your application description page.";
+            return View(model);
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            object model = "Your contact page.";
+            return View(model);
         }
 
-        [Route("home/{year}/{month}")]
+        [Route("home/hello/{year?}/{month?}")]
         public ActionResult Hello(int? year, int? month)
         {
             /*
-             * Here request is routed to this method based on the pattern. View is selected based on the method name.
+             * Here request is routed to this method based on the pattern. View is selected based on the controller and method name.
+             * It searches for a folder with controller name and picks the cshtml having the method name.
              * We dont use View bag as it is dynamic and no compile time safety. We dont use ViewData as it depends on magic string and can complicate maintenance as we have to modify both controller and view if the string has to be changed.
              * We only use the model approach.
+             * for empty value routing you have to specify route parameters as {month?} also the value should be nullable to accept null. for value types we specify nullable.
              */
+
+            if (!year.HasValue)
+            {
+                year = 0;
+            }
+
+            if (!month.HasValue)
+            {
+                month = 12;
+            }
 
             Movie newMovie = new Movie { Name = "Movie1" };
             IList<Customer> cust = new List<Customer> {
