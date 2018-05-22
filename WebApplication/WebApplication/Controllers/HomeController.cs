@@ -27,7 +27,7 @@ namespace WebApplication.Controllers
             return View(model);
         }
 
-        [Route("home/hello/{year?}/{month?}")]
+        [Route("home/hello/{year:regex(\\d{4})}/{month?}")]
         public ActionResult Hello(int? year, int? month)
         {
             /*
