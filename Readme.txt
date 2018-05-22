@@ -77,4 +77,21 @@ modify the setting such that the overrideModeDefault="Allow" so that it can be o
 
 
 
+Autherization
+
+edit the setting as shown below. ? used for anonymous
+<system.web>
+    
+	<authorization>
+      
+	  <allow users="vestas\jajac" />
+
+	  <!--<allow roles="guests"/>-->
+      
+	  <deny users="*"/>  <!--All other users including anonymous are denied.-->    
+    
+	</authorization>
+</system.web>
+    
+
 
