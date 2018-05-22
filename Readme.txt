@@ -98,3 +98,6 @@ Autherization
 [Authorize(Users=@"vestas\other,vestas\jajac")]
 
 
+
+Crud operations
+
