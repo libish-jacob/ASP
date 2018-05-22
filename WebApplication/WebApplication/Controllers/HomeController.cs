@@ -9,6 +9,7 @@ using WebApplication.ViewModels;
 
 namespace WebApplication.Controllers
 {
+    [Authorize(Users=@"vestas\other,vestas\jajac")]
     public class HomeController : Controller
     {
         public ActionResult Index()

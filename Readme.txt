@@ -79,7 +79,7 @@ modify the setting such that the overrideModeDefault="Allow" so that it can be o
 
 Autherization
 
-edit the setting as shown below. ? used for anonymous
+1. edit the setting as shown below. ? used for anonymous
 <system.web>
     
 	<authorization>
@@ -93,5 +93,8 @@ edit the setting as shown below. ? used for anonymous
 	</authorization>
 </system.web>
     
+
+2. Set Authorize attribute on controller or method. Then the setting in config file is not necessory.
+[Authorize(Users=@"vestas\other,vestas\jajac")]
 
 
