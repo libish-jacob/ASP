@@ -27,7 +27,7 @@ namespace WebApplication.Controllers
             return View(model);
         }
 
-        [Route("home/hello/{year:regex(\\d{4})}/{month?}")]
+        [Route("home/hello/{year:regex(\\d{4}):range(2016,2017)}/{month?}")]
         public ActionResult Hello(int? year, int? month)
         {
             /*
@@ -36,6 +36,7 @@ namespace WebApplication.Controllers
              * We dont use View bag as it is dynamic and no compile time safety. We dont use ViewData as it depends on magic string and can complicate maintenance as we have to modify both controller and view if the string has to be changed.
              * We only use the model approach.
              * for empty value routing you have to specify route parameters as {month?} also the value should be nullable to accept null. for value types we specify nullable.
+             * Here the regex does two things, 1. matches the pattern for 4 digits, second matches a range.
              */
 
             if (!year.HasValue)
