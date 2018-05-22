@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication.Helpers;
 using WebApplication.Models;
 using WebApplication.ViewModels;
 
@@ -48,6 +49,9 @@ namespace WebApplication.Controllers
             {
                 month = 12;
             }
+
+            CustomerRepo repo = new CustomerRepo();
+            var list = repo.GetCustomers();
 
             Movie newMovie = new Movie { Name = "Movie1" };
             IList<Customer> cust = new List<Customer> {
