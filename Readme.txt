@@ -1,49 +1,35 @@
 toutorial video https://youtu.be/E7Voso411Vs
 
 
+How to change the theme.
+1. Goto bootswatch.com
+2. Themes->select theme
+3. From theme name dropdown on top panel download bootstrap.css
+4. Rename it with themename appended
+5. Place it under content folder
+6. Open bundle.config
+7. replace bootstrap.css with new css file
 
 
+Action results
+1. View()
+2. Content()
+3. PartialView()
+4.Redirect()
+5.RedirectToAction()
+6.Json()
+7.File()
+8.HttpNotFound()
+9. EmptyResult()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+             * Here request is routed to this method based on the pattern. View is selected based on the controller and method name.
+             * It searches for a folder with controller name and picks the cshtml having the method name.
+             * We dont use View bag as it is dynamic and no compile time safety. We dont use ViewData as it depends on magic string and can complicate maintenance as we have to modify both controller and view if the string has to be changed.
+             * We only use the model approach.
+             * for empty value routing you have to specify route parameters as {month?} also the value should be nullable to accept null. for value types we specify nullable.
+             */
 
 
 
