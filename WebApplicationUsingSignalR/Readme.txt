@@ -34,7 +34,7 @@ chat.client.broadcastMessage = function (name, message) {}
 And at server side, call this method by using Clients.All.broadcastMessage(name, message); It is dynamic.
 
 
-
+TODO: Implement a chat app where user can do group aswell as individual chat.
 
 
 
