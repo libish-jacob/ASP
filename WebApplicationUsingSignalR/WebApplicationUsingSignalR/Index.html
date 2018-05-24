@@ -3,6 +3,7 @@
 <head>
     <title>SignalR Simple Chat</title>
     <style type="text/css">
+
         .container {
             background-color: #99CCFF;
             border: thick solid #808080;
@@ -12,12 +13,21 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <input type="text" id="message" />
-        <input type="button" id="sendmessage" value="Send" />
-        <input type="hidden" id="displayname" />
-        <ul id="discussion"></ul>
+    <div>
+        <div class="container">
+            <input type="text" id="message" />
+            <input type="button" id="sendmessage" value="Send" />
+            <input type="hidden" id="displayname" />
+            <ul id="discussion"></ul>
+        </div>
+        <div class="container">
+            <ul id="OnlineUsers"></ul>
+        </div>
+        <div id="personalChat" class="container">
+            
+        </div>
     </div>
+
     <!--Script references. -->
     <!--Reference the jQuery library. -->
     <script src="Scripts/jquery-1.6.4.min.js"></script>
@@ -27,9 +37,34 @@
     <script src="signalr/hubs"></script>
     <!--Add script to update the page and send messages.-->
     <script type="text/javascript">
-        $(function () {
-            // Declare a proxy to reference the hub.
+        // Declare a proxy to reference the hub.
             var chat = $.connection.CommunicatorHub;
+        var generatedName = '';
+        function openChat(name)
+        {
+            if($("#personalmessage"+name).length)
+            {
+                // return if window already created.
+                return;
+            }
+
+        $inner = '<div class="container"><label>'+name+'</label><input type="text" id="personalmessage'+name+'" /><input type="button" id="personalsendmessage'+name+'" value="Send" /><input type="hidden" id="personaldisplayname'+name+'" /><ul id="personaldiscussion'+name+'"></ul></div>'
+        $("#personalChat").append($inner);
+
+        // Get the user name and store it to prepend to messages.
+        $('#personaldisplayname'+name).val(name);
+        // Set initial focus to message input box.
+        $('#personalmessage'+name).focus();
+
+        $('#personalsendmessage'+name).click(function () {
+                    // Call the Send method on the hub.
+                    chat.server.sendPersonal(generatedName,$('#personaldisplayname'+name).val(), $('#personalmessage'+name).val());
+                    // Clear text box and reset focus for next comment.
+                    $('#personalmessage'+name).val('').focus();
+                });
+        };
+
+        $(function () {            
             // Create a function that the hub can call to broadcast messages.
             chat.client.broadcastMessage = function (name, message) {
                 // Html encode display name and message.
@@ -39,6 +74,40 @@
                 $('#discussion').append('<li><strong>' + encodedName
                     + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
             };
+
+        // Create a function that the hub can call to broadcast messages.
+            chat.client.personalMessage = function (name, message) {
+        if($("#personalmessage"+name).length)
+            {
+             openChat(name);
+            }
+
+
+                // Html encode display name and message.
+                var encodedName = $('<div />').text(name).html();
+                var encodedMsg = $('<div />').text(message).html();
+                // Add the message to the page.
+                $('#personaldiscussion'+name).append('<li><strong>' + encodedName
+                    + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+            };
+
+        chat.client.ConnectedUserGeneratedName = function (name) {
+                generatedName = name;
+            };
+        
+        chat.client.onlineUsers = function (usersList) {
+            var $ul = '';
+            //iterate through each choice for this question
+            $.each(usersList, function(ii, user){
+                if(user != generatedName)
+                {
+                    $ul += '<li><label><button onclick="openChat(\''+user+'\')" id="'+user+'">'+user+'</button></label></li>';
+                }
+                });
+
+            $("#OnlineUsers").html($ul);
+            };
+
             // Get the user name and store it to prepend to messages.
             $('#displayname').val(prompt('Enter your name:', ''));
             // Set initial focus to message input box.
