@@ -28,5 +28,13 @@ Make sure the edited file is the one running. Rebuild the project to make sure i
 People say we have to change the script to point to the path by using <script src="~/signalr/hubs"></script>. But I have used only <script src="signalr/hubs"></script>
 
 
+Register methods which needs to be called by server. Here broadcastMessage is the name of the method.
+chat.client.broadcastMessage = function (name, message) {}
+
+And at server side, call this method by using Clients.All.broadcastMessage(name, message); It is dynamic.
+
+
+
+
 
 
